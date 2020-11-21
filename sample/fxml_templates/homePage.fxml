@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="632.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="220.0" layoutY="382.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="192.0" text="NEW GAME">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="220.0" layoutY="448.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="192.0" text="LOAD SAVED GAMES">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <MediaView fitHeight="200.0" fitWidth="200.0" layoutX="220.0" layoutY="157.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="429.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/starboy.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="56.0" layoutY="494.0" prefHeight="37.0" prefWidth="40.0" text="0" textAlignment="CENTER" textFill="#f0eeee">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="72.0" fitWidth="158.0" layoutX="481.0" layoutY="476.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/exit.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="94.0" fitWidth="91.0" layoutX="518.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/b8cd6d45a84bd74c9d480a3b25309261.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="84.0" fitWidth="91.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true">
+         <image>
+            <Image url="@../images/help.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="84.0" fitWidth="200.0" layoutX="220.0" layoutY="72.0" pickOnBounds="true">
+         <image>
+            <Image url="@../images/Color_Switch.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>
