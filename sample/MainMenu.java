@@ -32,6 +32,7 @@ public class MainMenu {
     public MainMenu(Stage stage) throws IOException,FileNotFoundException {
         this.stage = stage;
         Pane root1 = new Pane();
+        root1.setStyle("-fx-background-color: #000");
 
         //Adding all the images
         FileInputStream inputStream1 = new FileInputStream("C:\\Users\\Manu\\IdeaProjects\\ColorSwitchGUI\\src\\sample\\images\\help.png");
@@ -69,11 +70,11 @@ public class MainMenu {
         exitIcon.setFitWidth(158);exitIcon.setFitHeight(72);
         inputStream5.close();
 
-        FileInputStream inputStream6 = new FileInputStream("C:\\Users\\Manu\\IdeaProjects\\ColorSwitchGUI\\src\\sample\\images\\play.png");
+        FileInputStream inputStream6 = new FileInputStream("C:\\Users\\Manu\\IdeaProjects\\ColorSwitchGUI\\src\\sample\\images\\play.jpg");
         Image img6 = new Image(inputStream6);
         ImageView playIcon = new ImageView(img6);
-        playIcon.setX(325); playIcon.setY(352);
-        playIcon.setFitWidth(50);playIcon.setFitHeight(50);
+        playIcon.setX(320); playIcon.setY(297);
+        playIcon.setFitWidth(60);playIcon.setFitHeight(60);
         inputStream6.close();
 
         //Adding the buttons
@@ -86,8 +87,8 @@ public class MainMenu {
         btn1.setTextAlignment(TextAlignment.CENTER);btn2.setTextAlignment(TextAlignment.CENTER);
         btn1.setPrefHeight(43);btn1.setPrefWidth(200);
         btn2.setPrefHeight(43);btn2.setPrefWidth(200);
-        btn1.setLayoutX(250);btn1.setLayoutY(489);
-        btn2.setLayoutX(250);btn2.setLayoutY(555);
+        btn1.setLayoutX(250);btn1.setLayoutY(500);
+        btn2.setLayoutX(250);btn2.setLayoutY(565);
 
         //Adding the score label
         Label score = new Label("0");
@@ -101,8 +102,8 @@ public class MainMenu {
         Group ring3 = createRing(350,327,112);
 
         Timeline timeline1 = rotatingObstacle(ring1,350.0,327.0,5,360d);
-        Timeline timeline2 = rotatingObstacle(ring2,350.0,327.0,3,360d);
-        Timeline timeline3 = rotatingObstacle(ring3,350.0,327.0,2,360d);
+        Timeline timeline2 = rotatingObstacle(ring2,350.0,327.0,5.5,360d);
+        Timeline timeline3 = rotatingObstacle(ring3,350.0,327.0,6,360d);
         timeline1.play();
         timeline2.play();
         timeline3.play();
@@ -119,10 +120,10 @@ public class MainMenu {
         Arc arc3 = new Arc();
         Arc arc4 = new Arc();
         //properties of the arcs
-        arc1.setFill(Color.WHITE); arc1.setStroke(Color.RED); arc1.setStrokeWidth(20);
-        arc2.setFill(Color.WHITE); arc2.setStroke(Color.DEEPPINK); arc2.setStrokeWidth(20);
-        arc3.setFill(Color.WHITE); arc3.setStroke(Color.YELLOW); arc3.setStrokeWidth(20);
-        arc4.setFill(Color.WHITE); arc4.setStroke(Color.GREEN); arc4.setStrokeWidth(20);
+        arc1.setFill(Color.TRANSPARENT); arc1.setStroke(Color.RED); arc1.setStrokeWidth(20);
+        arc2.setFill(Color.TRANSPARENT); arc2.setStroke(Color.DEEPPINK); arc2.setStrokeWidth(20);
+        arc3.setFill(Color.TRANSPARENT); arc3.setStroke(Color.YELLOW); arc3.setStrokeWidth(20);
+        arc4.setFill(Color.TRANSPARENT); arc4.setStroke(Color.GREEN); arc4.setStrokeWidth(20);
 
         //Setting the dimensions of the arcs (centre,radius,length,start angle)
         arc1.setCenterX(centerX);arc3.setCenterX(centerX); arc2.setCenterX(centerX); arc4.setCenterX(centerX);
