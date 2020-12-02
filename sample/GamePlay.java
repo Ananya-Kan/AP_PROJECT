@@ -59,7 +59,7 @@ public class GamePlay {
 
         //putting the label of the no.of stars collected
         //loading the star image
-        FileInputStream inputStream1 = new FileInputStream("C:\\Users\\Manu\\IdeaProjects\\ColorSwitchGUI\\src\\sample\\images\\starboy.png");
+        FileInputStream inputStream1 = new FileInputStream("C:\\Users\\Ananya\\IdeaProjects\\Colour_Switch\\src\\sample\\images\\starboy.png");
         Image img1 = new Image(inputStream1);
         ImageView starIcon = new ImageView(img1);
         starIcon.setX(600); starIcon.setY(30);
@@ -71,11 +71,11 @@ public class GamePlay {
         starsCollected.setTextFill(Color.WHITE);
 
         //adding the pause button
-        FileInputStream inputStream2 = new FileInputStream("C:\\Users\\Manu\\IdeaProjects\\ColorSwitchGUI\\src\\sample\\images\\pause.png");
+        FileInputStream inputStream2 = new FileInputStream("C:\\Users\\Ananya\\IdeaProjects\\Colour_Switch\\src\\sample\\images\\pause.jpg");
         Image img2 = new Image(inputStream2);
         ImageView pauseIcon = new ImageView(img2);
-        pauseIcon.setX(650); pauseIcon.setY(5);
-        pauseIcon.setFitWidth(100);pauseIcon.setFitHeight(100);
+        pauseIcon.setX(718); pauseIcon.setY(18);
+        pauseIcon.setFitWidth(60);pauseIcon.setFitHeight(60);
         inputStream2.close();
 
         //Adding color switches
@@ -179,7 +179,7 @@ public class GamePlay {
     }
 
     public ImageView createStar(double posX,double posY,double width,double height) throws IOException{
-        FileInputStream inputStream = new FileInputStream("C:\\Users\\Manu\\IdeaProjects\\ColorSwitchGUI\\src\\sample\\images\\star.png");
+        FileInputStream inputStream = new FileInputStream("C:\\Users\\Ananya\\IdeaProjects\\Colour_Switch\\src\\sample\\images\\star.png");
         Image img = new Image(inputStream);
         ImageView star = new ImageView(img);
         star.setX(posX);star.setY(posY);

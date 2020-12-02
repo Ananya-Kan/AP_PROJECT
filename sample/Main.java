@@ -1,43 +1,39 @@
 package sample;
-
-import javafx.animation.*;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
-
-import javafx.scene.transform.Rotate;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import sample.controllers.ObstacleController;
 
-public class Main extends Application {
+import java.io.FileInputStream;
 
+public class Main extends Application{
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage pstage) throws Exception {
         // TODO Auto-generated method stub
-        //ObstacleController obstacleController = new ObstacleController();
 
-        //Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
-        //primaryStage.setHeight(700);primaryStage.setWidth(700);
+        pstage.setTitle("Color Switch ");
 
-        MainMenu menu = new MainMenu(primaryStage);
-        GamePlay game = new GamePlay(primaryStage);
-        Scene mainPage = menu.scene;
-        Scene gamePlay = game.scene;
+        Load page1 = new Load(pstage);
+        Hit page2=new Hit(pstage);
+        Pause page3= new Pause(pstage);
+        Settings page4=new Settings(pstage);
+        Help page5=new Help(pstage);
+        Hscore page6=new Hscore(pstage);
+        GamePlay page7=new GamePlay(pstage);
+        MainMenu page8=new MainMenu(pstage);
 
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(mainPage);
-        primaryStage.show();
+        pstage.setScene(page2.scene);
+        pstage.show();
     }
-
-
     public static void main(String[] args) {
         launch(args);
+
     }
 }
-

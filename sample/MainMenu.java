@@ -35,42 +35,42 @@ public class MainMenu {
         root1.setStyle("-fx-background-color: #000");
 
         //Adding all the images
-        FileInputStream inputStream1 = new FileInputStream("C:\\Users\\Manu\\IdeaProjects\\ColorSwitchGUI\\src\\sample\\images\\help.png");
+        FileInputStream inputStream1 = new FileInputStream("C:\\Users\\Ananya\\IdeaProjects\\Colour_Switch\\src\\sample\\images\\help.png");
         Image img1 = new Image(inputStream1);
         ImageView helpIcon = new ImageView(img1);
         helpIcon.setX(21); helpIcon.setY(14);
         helpIcon.setFitWidth(91);helpIcon.setFitHeight(84);
         inputStream1.close();
 
-        FileInputStream inputStream2 = new FileInputStream("C:\\Users\\Manu\\IdeaProjects\\ColorSwitchGUI\\src\\sample\\images\\settings.png");
+        FileInputStream inputStream2 = new FileInputStream("C:\\Users\\Ananya\\IdeaProjects\\Colour_Switch\\src\\sample\\images\\settings.png");
         Image img2 = new Image(inputStream2);
         ImageView settingsIcon = new ImageView(img2);
         settingsIcon.setX(586); settingsIcon.setY(14);
         settingsIcon.setFitWidth(91);settingsIcon.setFitHeight(94);
         inputStream2.close();
 
-        FileInputStream inputStream3 = new FileInputStream("C:\\Users\\Manu\\IdeaProjects\\ColorSwitchGUI\\src\\sample\\images\\Color_Switch.png");
+        FileInputStream inputStream3 = new FileInputStream("C:\\Users\\Ananya\\IdeaProjects\\Colour_Switch\\src\\sample\\images\\Color_Switch.png");
         Image img3 = new Image(inputStream3);
         ImageView mainIcon = new ImageView(img3);
         mainIcon.setX(250); mainIcon.setY(52);
         mainIcon.setFitWidth(200);mainIcon.setFitHeight(84);
         inputStream3.close();
 
-        FileInputStream inputStream4 = new FileInputStream("C:\\Users\\Manu\\IdeaProjects\\ColorSwitchGUI\\src\\sample\\images\\starboy.png");
+        FileInputStream inputStream4 = new FileInputStream("C:\\Users\\Ananya\\IdeaProjects\\Colour_Switch\\src\\sample\\images\\starboy.png");
         Image img4 = new Image(inputStream4);
         ImageView starIcon = new ImageView(img4);
-        starIcon.setX(0); starIcon.setY(536);
+        starIcon.setX(0); starIcon.setY(550);
         starIcon.setFitWidth(150);starIcon.setFitHeight(150);
         inputStream4.close();
 
-        FileInputStream inputStream5 = new FileInputStream("C:\\Users\\Manu\\IdeaProjects\\ColorSwitchGUI\\src\\sample\\images\\exit.jpg");
+        FileInputStream inputStream5 = new FileInputStream("C:\\Users\\Ananya\\IdeaProjects\\Colour_Switch\\src\\sample\\images\\exit.jpg");
         Image img5 = new Image(inputStream5);
         ImageView exitIcon = new ImageView(img5);
-        exitIcon.setX(521); exitIcon.setY(583);
+        exitIcon.setX(521); exitIcon.setY(600);
         exitIcon.setFitWidth(158);exitIcon.setFitHeight(72);
         inputStream5.close();
 
-        FileInputStream inputStream6 = new FileInputStream("C:\\Users\\Manu\\IdeaProjects\\ColorSwitchGUI\\src\\sample\\images\\play.jpg");
+        FileInputStream inputStream6 = new FileInputStream("C:\\Users\\Ananya\\IdeaProjects\\Colour_Switch\\src\\sample\\images\\play.jpg");
         Image img6 = new Image(inputStream6);
         ImageView playIcon = new ImageView(img6);
         playIcon.setX(320); playIcon.setY(297);
