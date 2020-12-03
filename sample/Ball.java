@@ -2,15 +2,15 @@ package sample;
 
 public class Ball {
     private Point position;
-    private String color;
+    private int color;
 
-    public Ball(Point position,String color){
+    public Ball(Point position,int color){
         this.position = position;
         this.color = color;
     }
 
     public void setPosition(Point position) { this.position = position; }
-    public void setColor(String color) { this.color = color; }
+    public void setColor(int color) { this.color = color; }
     public Point getPosition() { return position; }
-    public String getColor() { return color; }
+    public int getColor() { return color; }
 }
