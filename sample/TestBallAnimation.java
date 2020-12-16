@@ -6,6 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -17,6 +19,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.beans.EventHandler;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -27,7 +32,7 @@ public class TestBallAnimation {
 
     private final int width = 800;
     private final int height = 800;
-    private final double ball_radius = 15;
+    private final double ball_radius = 16.5;
     private ParallelTransition pt = new ParallelTransition();
 
     private Game game;
@@ -47,7 +52,7 @@ public class TestBallAnimation {
         this.stage = stage;
         Canvas canvas = new Canvas(width, height);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), e->run(gc)));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), e->run(gc)));
         timeline.setCycleCount(Timeline.INDEFINITE);
 
         canvas.setOnMouseClicked(e-> gameStarted = true);
@@ -58,7 +63,7 @@ public class TestBallAnimation {
         ball = game.getBall();
 
         //generate the required obstacles
-        for(int i = 0;i<40;i++)
+        for(int i = 0;i<10;i++)
             game.generateObstacles();
 
         //now,populating our arrays
@@ -100,14 +105,14 @@ public class TestBallAnimation {
 //        ring.getTransforms().add(rotatingRing);
 
         //sample colorSwitch
-        colorSwitch = createColorSwitch(400,330,15);
+        colorSwitch = createColorSwitch(400,300,14);
 
         //adding all the obstacles to the parent
         for (GUIObstacleNode o:created_obstacles) {
             parent.getChildren().add(o.obstacle);
         }
-
-
+        //adding all the stars at their positions
+        parent.getChildren().add(colorSwitch);
         //timeline.play();
         pt.getChildren().addAll(timeline);
         pt.play();
@@ -121,7 +126,7 @@ public class TestBallAnimation {
             //checking for the input
             scene.setOnKeyPressed(e->{
                 if(e.getCode()==KeyCode.W){
-                    ballSpeed = 1.5;
+                    ballSpeed = 8.5;
                 }
             });
             //updating the ball position
@@ -137,7 +142,7 @@ public class TestBallAnimation {
 
 
             //updating ball speed for the next instant (gravity)
-            ballSpeed-=0.02;
+            ballSpeed-=1;
             drawBall(gc);
             //now to check collision
             collisionDetected = checkCollision();
@@ -145,7 +150,7 @@ public class TestBallAnimation {
                 gameStarted = false;
             }
             //check for collision with color switch...if yes, change the color of the ball
-            colorChange(colorSwitch,ball);
+            colorChange();
         }
     }
 
@@ -160,7 +165,7 @@ public class TestBallAnimation {
             case 3: gc.setFill(Color.GREEN);
                     break;
         }
-        gc.fillOval(ball.getPosition().getX(),ball.getPosition().getY(),ball_radius,ball_radius);
+        gc.fillOval(ball.getPosition().getX()-5.75,ball.getPosition().getY(),ball_radius,ball_radius);
     }
 
     private boolean checkCollision(){
@@ -211,16 +216,29 @@ public class TestBallAnimation {
         return false;
     }
 
-    private void colorChange(Group colorSwitch, Ball ball){
+    private void colorChange(){
         int randColor = 0;
+        int current_color = ball.getColor();
         Random random = new Random();
-        if(ball.getPosition().getX()==400 && ball.getPosition().getY()==330){
+        if(ball.getPosition().getX()==400 && ball.getPosition().getY()==300){
             do{
                 randColor = random.nextInt(4);
-            }while(randColor == ball.getColor());
+            }while(randColor == current_color);
             ball.setColor(randColor);
         }
     }
+//    private void colorChange(){
+//        int randColor = 0;
+//        int current_color = ball.getColor();
+//        Random random = new Random();
+//        if(ball.getPosition().getX()==400 && ball.getPosition().getY()==300){
+//            randColor=random.nextInt(4);
+//            while(current_color==randColor)
+//                randColor=random.nextInt(4);
+//            ball.setColor(randColor);
+//
+//        }
+//    }
 
     public Group createColorSwitch(double centerX, double centerY, double radius){
         Arc arc1 = new Arc();
@@ -243,5 +261,15 @@ public class TestBallAnimation {
         arc1.setType(ArcType.ROUND);arc2.setType(ArcType.ROUND);arc3.setType(ArcType.ROUND);arc4.setType(ArcType.ROUND);
 
         return new Group(arc1,arc2,arc3,arc4);
+    }
+
+    public ImageView createStar(double centerX,double centerY,double size) throws IOException {
+        FileInputStream inputStream = new FileInputStream("C:\\Users\\Manu\\IdeaProjects\\ColorSwitchGUI\\src\\sample\\images\\star.png");
+        Image img = new Image(inputStream);
+        ImageView star = new ImageView(img);
+        star.setX(centerX-size/2);star.setY(centerY-size/2);
+        star.setFitWidth(size);star.setFitHeight(size);
+        inputStream.close();
+        return star;
     }
 }

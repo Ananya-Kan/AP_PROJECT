@@ -47,7 +47,7 @@ public class Game {
     }
     public void generateObstacles(){
         if(generated_obstacles.size()==0){
-            generated_obstacles.add(new CircleObs(new Point(400,570),1,200));
+            generated_obstacles.add(new CircleObs(new Point(400,520),4,200));
         }
         Random random = new Random();
         //first, to generate the type of obstacle
@@ -55,7 +55,7 @@ public class Game {
         //also, determine the difficulty of the obstacle
         int difficulty = calc_difficulty();
         //values of speed for each difficulty
-        double[] speed_vals = {1,1.2,1.4};
+        double[] speed_vals = {4,5,5.5};
         //now using all the information to instantiate the obstacle and insert into our list
         Obstacles prev = generated_obstacles.get(generated_obstacles.size()-1);
         double space = prev.getPosition().getY() - 420;
@@ -82,13 +82,13 @@ public class Game {
                     obs_node.addObstacle(ins1);
                     obs_node.setStar(star_pos); saved_obstacles.add(obs_node);
                     break;
-            case 4: ins1 = new Cross(new Point(340,space),speed, 80);
+            case 4: ins1 = new Cross(new Point(320,space),-speed, 80);
                     generated_obstacles.add(ins1);
                     obs_node = new ObstacleNode();
                     obs_node.addObstacle(ins1);
                     obs_node.setStar(star_pos); saved_obstacles.add(obs_node);
                     break;
-            case 5: ins1 = new CircleObs(new Point(400,space),speed,240);
+            case 5: ins1 = new CircleObs(new Point(400,space),speed,260);
                     Obstacles ins2 = new Cross(new Point(360,space),speed, 50);
                     generated_obstacles.add(ins1);generated_obstacles.add(ins2);
                     obs_node = new ObstacleNode();
@@ -111,14 +111,14 @@ public class Game {
                     obs_node.setStar(star_pos); saved_obstacles.add(obs_node);
                     break;
             case 8: ins1 = new CircleObs(new Point(400,space),speed,240);
-                    ins2 = new Square(new Point(400,space),speed,160);
+                    ins2 = new Square(new Point(400,space),speed,120);
                     generated_obstacles.add(ins1);generated_obstacles.add(ins2);
                     obs_node = new ObstacleNode();
                     obs_node.addObstacle(ins1);obs_node.addObstacle(ins2);
                     obs_node.setStar(star_pos); saved_obstacles.add(obs_node);
                     break;
             case 9: ins1 = new Cross(new Point(338,space),speed,60);
-                    ins2 = new Cross(new Point(404,space),speed,60);
+                    ins2 = new Cross(new Point(465,space),-speed,60);
                     generated_obstacles.add(ins1);generated_obstacles.add(ins2);
                     obs_node = new ObstacleNode();
                     obs_node.addObstacle(ins1);obs_node.addObstacle(ins2);
