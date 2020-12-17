@@ -54,14 +54,14 @@ public class TestBallAnimation {
 
     ImageView highStar;
     Label starsCollected;
-
+    ImageView pause= Pausepic(730,50,70);
     private int flag = 0;
-
+    Timeline timeline;
     public TestBallAnimation(Stage stage) throws IOException {
         this.stage = stage;
         Canvas canvas = new Canvas(width, height);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), e-> {
+         timeline = new Timeline(new KeyFrame(Duration.millis(50), e-> {
             try {
                 run(gc);
             } catch (IOException ex) {
@@ -162,7 +162,10 @@ public class TestBallAnimation {
             ball.setPosition(new Point(ball.getPosition().getX(), ball.getPosition().getY() - ballSpeed));
             if(ball.getPosition().getY()<=400)
                 infiniteScroll();
-
+            if(ball.getPosition().getY()>800)
+            {
+                oopspage(true);
+            }
             //updating ball speed for the next instant (gravity)
             ballSpeed -= 1;
 
@@ -183,6 +186,7 @@ public class TestBallAnimation {
             if(checkCollision()){
                 gameStarted = false;
             }
+            oopspage(checkCollision());
             //check for collision with color switch...if yes, change the color of the ball
             if(checkColorSwitch()){
                 int randColor = 0;
@@ -336,7 +340,20 @@ public class TestBallAnimation {
             flag = 0;
         }
     }
-
+    public void oopspage(boolean value)
+    {
+        if(value==true)
+        {
+            Hit page5 = null;
+           // timeline.stop();
+            try {
+                page5 = new Hit(stage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage.setScene(page5.scene);
+        }
+    }
     private boolean checkCollision(){
         Circle b = new Circle(ball.getPosition().getX(),ball.getPosition().getY(),ball_radius);
         switch(ball.getColor()){
@@ -469,6 +486,27 @@ public class TestBallAnimation {
         star.setX(centerX-size/2);star.setY(centerY-size/2);
         star.setFitWidth(size);star.setFitHeight(size);
         inputStream.close();
+        return star;
+    }
+    public ImageView Pausepic(double centerX,double centerY,double size) throws IOException {
+
+        //String path = "M"+centerX+" "+(centerY+)+"z";
+
+        FileInputStream inputStream = new FileInputStream("C:\\Users\\Ananya\\IdeaProjects\\Colour_Switch\\src\\sample\\images\\pause.jpg");
+        Image img = new Image(inputStream);
+        ImageView star = new ImageView(img);
+        star.setX(centerX-size/2);star.setY(centerY-size/2);
+        star.setFitWidth(size);star.setFitHeight(size);
+        star.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            Pause page5 = null;
+            timeline.stop();
+            try {
+                page5 = new Pause(stage,this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage.setScene(page5.scene);
+        });
         return star;
     }
 }
