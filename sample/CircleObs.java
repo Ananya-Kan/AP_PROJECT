@@ -3,8 +3,8 @@ package sample;
 public class CircleObs extends Obstacles {
 
     private double diameter;
-    public CircleObs(Point position, double speed, double diameter) {
-        super(position, speed);
+    public CircleObs(Point position, double speed, double offset_angle,double diameter) {
+        super(position, speed, offset_angle);
         this.diameter = diameter;
     }
 

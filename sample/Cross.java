@@ -3,8 +3,8 @@ package sample;
 public class Cross extends Obstacles {
     private double armLength;
 
-    public Cross(Point position, double speed, double armLength) {
-        super(position, speed);
+    public Cross(Point position, double speed, double offset_angle, double armLength) {
+        super(position, speed, offset_angle);
         this.armLength = armLength;
     }
 

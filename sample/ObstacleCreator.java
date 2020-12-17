@@ -21,7 +21,7 @@ public class ObstacleCreator {
         arc1.setCenterY(centerY); arc2.setCenterY(centerY); arc3.setCenterY(centerY); arc4.setCenterY(centerY);
         arc1.setRadiusX(radius); arc2.setRadiusX(radius); arc3.setRadiusX(radius); arc4.setRadiusX(radius);
         arc1.setRadiusY(radius); arc2.setRadiusY(radius);arc3.setRadiusY(radius);arc4.setRadiusY(radius);
-        arc1.setStartAngle(0.0f); arc2.setStartAngle(90.0f); arc3.setStartAngle(180.0f); arc4.setStartAngle(270.0f);
+        arc1.setStartAngle(315f); arc2.setStartAngle(45f); arc3.setStartAngle(135.0f); arc4.setStartAngle(225.0f);
         arc1.setLength(90.0f); arc2.setLength(90.0f); arc3.setLength(90.0f); arc4.setLength(90.0f);
 
         //Setting the type of the arc
@@ -43,10 +43,10 @@ public class ObstacleCreator {
         arm4.setStroke(Color.GREEN);arm4.setStrokeWidth(10);arm4.setStrokeType(StrokeType.CENTERED);arm4.setStrokeLineCap(StrokeLineCap.ROUND);
 
         //positioning the arms
-        arm1.setStartX(centerX);arm1.setStartY(centerY);arm1.setEndX(centerX);arm1.setEndY(centerY+armLength);
-        arm2.setStartX(centerX);arm2.setStartY(centerY);arm2.setEndX(centerX);arm2.setEndY(centerY-armLength);
-        arm3.setStartX(centerX);arm3.setStartY(centerY);arm3.setEndX(centerX-armLength);arm3.setEndY(centerY);
-        arm4.setStartX(centerX);arm4.setStartY(centerY);arm4.setEndX(centerX+armLength);arm4.setEndY(centerY);
+        arm3.setStartX(centerX);arm3.setStartY(centerY);arm3.setEndX(centerX);arm3.setEndY(centerY+armLength);
+        arm1.setStartX(centerX);arm1.setStartY(centerY);arm1.setEndX(centerX);arm1.setEndY(centerY-armLength);
+        arm4.setStartX(centerX);arm4.setStartY(centerY);arm4.setEndX(centerX-armLength);arm4.setEndY(centerY);
+        arm2.setStartX(centerX);arm2.setStartY(centerY);arm2.setEndX(centerX+armLength);arm2.setEndY(centerY);
 
         return new Group(arm1,arm2,arm3,arm4);
     }
@@ -62,10 +62,10 @@ public class ObstacleCreator {
         side3.setStroke(Color.YELLOW);side3.setStrokeWidth(10);side3.setStrokeType(StrokeType.CENTERED);side3.setStrokeLineCap(StrokeLineCap.ROUND);
         side4.setStroke(Color.GREEN);side4.setStrokeWidth(10);side4.setStrokeType(StrokeType.CENTERED);side4.setStrokeLineCap(StrokeLineCap.ROUND);
 
-        side1.setStartX(centerX-sideLength/2);side1.setStartY(centerY+sideLength/2);side1.setEndX(centerX-sideLength/2);side1.setEndY(centerY-sideLength/2);
-        side2.setStartX(centerX-sideLength/2);side2.setStartY(centerY-sideLength/2);side2.setEndX(centerX+sideLength/2);side2.setEndY(centerY-sideLength/2);
-        side3.setStartX(centerX+sideLength/2);side3.setStartY(centerY-sideLength/2);side3.setEndX(centerX+sideLength/2);side3.setEndY(centerY+sideLength/2);
-        side4.setStartX(centerX+sideLength/2);side4.setStartY(centerY+sideLength/2);side4.setEndX(centerX-sideLength/2);side4.setEndY(centerY+sideLength/2);
+        side3.setStartX(centerX-sideLength/2);side3.setStartY(centerY+sideLength/2);side3.setEndX(centerX-sideLength/2);side3.setEndY(centerY-sideLength/2);
+        side4.setStartX(centerX-sideLength/2);side4.setStartY(centerY-sideLength/2);side4.setEndX(centerX+sideLength/2);side4.setEndY(centerY-sideLength/2);
+        side1.setStartX(centerX+sideLength/2);side1.setStartY(centerY-sideLength/2);side1.setEndX(centerX+sideLength/2);side1.setEndY(centerY+sideLength/2);
+        side2.setStartX(centerX+sideLength/2);side2.setStartY(centerY+sideLength/2);side2.setEndX(centerX-sideLength/2);side2.setEndY(centerY+sideLength/2);
 
         return new Group(side1,side2,side3,side4);
     }

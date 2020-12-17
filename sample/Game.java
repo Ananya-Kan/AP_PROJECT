@@ -12,6 +12,7 @@ public class Game {
     private ArrayList<Point> star_positions;
     private ArrayList<Point> switch_positions;
     private ArrayList<Obstacles> generated_obstacles;
+    private final Player player;
     {//static initialization
         id = ++no_of_games;
     }
@@ -29,6 +30,7 @@ public class Game {
     public Ball getBall() { return ball; }
     public void setStars(int stars) { this.stars = stars; }
     public int getStars() { return stars; }
+
     public ArrayList<Obstacles> getGenerated_obstacles() { return generated_obstacles; }
     public ArrayList<Point> getStar_positions() { return star_positions; }
     public ArrayList<Point> getSwitch_positions() { return switch_positions; }
@@ -54,7 +56,7 @@ public class Game {
         Point switch_pos;
         ObstacleNode obs_node = null;
         if(generated_obstacles.size()==0){
-            ins1 = new CircleObs(new Point(400,520),4,200);
+            ins1 = new CircleObs(new Point(400,520),4,0,200);
             generated_obstacles.add(ins1);
             star_pos = new Point(400,520);
             switch_pos = new Point(400,340);
@@ -73,56 +75,56 @@ public class Game {
         double[] speed_vals = {4,5,5.5};
         //now using all the information to instantiate the obstacle and insert into our list
         Obstacles prev = generated_obstacles.get(generated_obstacles.size()-1);
-        double space = prev.getPosition().getY() - 420;
+        double space = prev.getPosition().getY() - 450;
         double speed = speed_vals[difficulty];
 
         star_pos = new Point(400,space);
-        switch_pos = new Point(400,space-180);
+        switch_pos = new Point(400,space-220);
         star_positions.add(star_pos);
         switch_positions.add(switch_pos);
         switch(type){
-            case 1: ins1 = new CircleObs(new Point(400,space),speed,200);
+            case 1: ins1 = new CircleObs(new Point(400,space),speed,0,200);
                     generated_obstacles.add(ins1);
                     obs_node = new ObstacleNode();
                     obs_node.addObstacle(ins1);
                     obs_node.setStar(star_pos); saved_obstacles.add(obs_node);
                     break;
-            case 2: ins1 = new Square(new Point(400,space),speed,200);
+            case 2: ins1 = new Square(new Point(400,space),speed,0,200);
                     generated_obstacles.add(ins1);
                     obs_node = new ObstacleNode();
                     obs_node.addObstacle(ins1);
                     obs_node.setStar(star_pos); saved_obstacles.add(obs_node);
                     break;
-            case 3: ins1 = new Cross(new Point(320,space),-speed, 80);
+            case 3: ins1 = new Cross(new Point(320,space),-speed, 0,80);
                     generated_obstacles.add(ins1);
                     obs_node = new ObstacleNode();
                     obs_node.addObstacle(ins1);
                     obs_node.setStar(star_pos); saved_obstacles.add(obs_node);
                     break;
-            case 4: ins1 = new CircleObs(new Point(400,space),speed,260);
-                    Obstacles ins2 = new Cross(new Point(360,space),speed, 50);
+            case 4: ins1 = new CircleObs(new Point(400,space),speed,0,300);
+                    Obstacles ins2 = new Cross(new Point(360,space),-speed, 180,50);
                     generated_obstacles.add(ins1);generated_obstacles.add(ins2);
                     obs_node = new ObstacleNode();
                     obs_node.addObstacle(ins1);obs_node.addObstacle(ins2);
                     obs_node.setStar(star_pos); saved_obstacles.add(obs_node);
                     break;
-            case 5: ins1 = new CircleObs(new Point(400,space),speed,160);
-                    ins2 = new CircleObs(new Point(400,space),speed,200);
-                    Obstacles ins3 = new CircleObs(new Point(400,space),speed,240);
+            case 5: ins1 = new CircleObs(new Point(400,space),speed,0,160);
+                    ins2 = new CircleObs(new Point(400,space),-speed,180,200);
+                    Obstacles ins3 = new CircleObs(new Point(400,space),speed,0,240);
                     generated_obstacles.add(ins1);generated_obstacles.add(ins2);generated_obstacles.add(ins3);
                     obs_node = new ObstacleNode();
                     obs_node.addObstacle(ins1);obs_node.addObstacle(ins2);obs_node.addObstacle(ins3);
                     obs_node.setStar(star_pos); saved_obstacles.add(obs_node);
                     break;
-            case 6: ins1 = new CircleObs(new Point(400,space),speed,240);
-                    ins2 = new Square(new Point(400,space),speed,120);
+            case 6: ins1 = new CircleObs(new Point(400,space),speed,0,280);
+                    ins2 = new Square(new Point(400,space),-speed,180,160);
                     generated_obstacles.add(ins1);generated_obstacles.add(ins2);
                     obs_node = new ObstacleNode();
                     obs_node.addObstacle(ins1);obs_node.addObstacle(ins2);
                     obs_node.setStar(star_pos); saved_obstacles.add(obs_node);
                     break;
-            case 7: ins1 = new Cross(new Point(338,space),speed,60);
-                    ins2 = new Cross(new Point(465,space),-speed,60);
+            case 7: ins1 = new Cross(new Point(338,space),speed,0,60);
+                    ins2 = new Cross(new Point(465,space),speed/2,0,60);
                     generated_obstacles.add(ins1);generated_obstacles.add(ins2);
                     obs_node = new ObstacleNode();
                     obs_node.addObstacle(ins1);obs_node.addObstacle(ins2);

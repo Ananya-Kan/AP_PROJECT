@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -13,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.scene.transform.Translate;
@@ -35,7 +37,6 @@ public class TestBallAnimation {
     private final int width = 800;
     private final int height = 800;
     private final double ball_radius = 16.5;
-    private ParallelTransition pt = new ParallelTransition();
 
     private Game game;
     private final Ball ball;
@@ -51,23 +52,41 @@ public class TestBallAnimation {
     private ArrayList<GUIStar> created_stars;
     private ArrayList<GUISwitch> created_switches;
 
+    ImageView highStar;
+    Label starsCollected;
+
+    private int flag = 0;
 
     public TestBallAnimation(Stage stage) throws IOException {
         this.stage = stage;
         Canvas canvas = new Canvas(width, height);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), e->run(gc)));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), e-> {
+            try {
+                run(gc);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }));
         timeline.setCycleCount(Timeline.INDEFINITE);
 
         canvas.setOnMouseClicked(e-> gameStarted = true);
         parent = new Pane(canvas);
         scene = new Scene(parent);
 
+        //putting star image, label
+        highStar = createStar(100,50,100);
+        starsCollected = new Label("0",highStar);
+        starsCollected.setFont(new Font(20));
+        starsCollected.setTextFill(Color.WHITE);
+
+        parent.getChildren().add(starsCollected);
+
         game = new Game();
         ball = game.getBall();
 
         //generate the required obstacles
-        for(int i = 0;i<5;i++)
+        for(int i = 0;i<10;i++)
             game.generateObstacles();
 
         //now,populating our arrays
@@ -85,8 +104,6 @@ public class TestBallAnimation {
                 obs = ObstacleCreator.createRing(o.getPosition().getX(),o.getPosition().getY(),o.getSizeParameter()/2);
             else if(o instanceof Square)
                 obs = ObstacleCreator.createSquare(o.getPosition().getX(),o.getPosition().getY(),o.getSizeParameter());
-            else if(o instanceof Triangle)
-                obs = ObstacleCreator.createTriangle(o.getPosition().getX(),o.getPosition().getY(),o.getSizeParameter());
             else if(o instanceof Cross)
                 obs = ObstacleCreator.createCross(o.getPosition().getX(),o.getPosition().getY(),o.getSizeParameter());
 
@@ -102,7 +119,7 @@ public class TestBallAnimation {
                 continue;
             }
             GUIObstacleNode obstacle = new GUIObstacleNode();
-            obstacle.obstacle = obs; obstacle.angle = 0; obstacle.rate = o.getSpeed();
+            obstacle.obstacle = obs; obstacle.angle = o.getOffset_angle(); obstacle.rate = o.getSpeed();
             created_obstacles.add(obstacle);
         }
         //adding all the obstacles to the parent
@@ -125,11 +142,10 @@ public class TestBallAnimation {
             created_stars.add(new GUIStar(star,s));
         }
 
-        //timeline.play();
-        pt.getChildren().addAll(timeline);
-        pt.play();
+        timeline.play();
     }
-    public void run(GraphicsContext gc){
+    public void run(GraphicsContext gc) throws IOException {
+
         //setting background screen as black
         gc.setFill(Color.BLACK);
         gc.fillRect(0, 0, width, height);
@@ -144,12 +160,13 @@ public class TestBallAnimation {
 
             //updating the ball position
             ball.setPosition(new Point(ball.getPosition().getX(), ball.getPosition().getY() - ballSpeed));
-            if(ball.getPosition().getY()<=400){
-
-            }
+            if(ball.getPosition().getY()<=400)
+                infiniteScroll();
 
             //updating ball speed for the next instant (gravity)
             ballSpeed -= 1;
+
+            //manageObstacles();
 
             //rotating the obstacles
             for(GUIObstacleNode o:created_obstacles){
@@ -184,6 +201,8 @@ public class TestBallAnimation {
                 created_stars.remove(0);    //remove that star instance from the list
                 star_positions.remove(0);
                 game.setStars(game.getStars()+1);
+                starsCollected.setText(String.valueOf(game.getStars()));
+                flag++;
                 for (ObstacleNode obs:game.getSaved_obstacles()) {
                     if(obs.getStar().equals(s.position)){
                         for (Obstacles o: obs.getObstacles())
@@ -210,14 +229,112 @@ public class TestBallAnimation {
 
     private void infiniteScroll(){
         double excess = 400-ball.getPosition().getY();
-        for(int i = 0; i<generated_obstacles.size(); i++ ){
-            Obstacles o = generated_obstacles.get(i);
-            GUIObstacleNode obs = created_obstacles.get(i);
-            //modify the position of the obstacle
+        //dragging the ball downwards
+        //ball.setPosition(new Point(ball.getPosition().getX(),ball.getPosition().getY()+excess));
+        //dragging obstacles downwards
+        for(GUIObstacleNode o:created_obstacles ){
+            //now moving the obstacles downwards
+            TranslateTransition transitDown = new TranslateTransition(Duration.millis(500),o.obstacle);
+            transitDown.setByY(excess);
+            transitDown.setCycleCount(1);
+            transitDown.setInterpolator(Interpolator.EASE_BOTH);
+            transitDown.play();
         }
-    }
-    private void manageObstacles(){
+        for (Obstacles o:generated_obstacles) {
+            o.setPosition(new Point(o.getPosition().getX(),o.getPosition().getY()+excess));
+        }
+        for(GUIStar star:created_stars) {
+            TranslateTransition translateTransition1 = new TranslateTransition();
+            translateTransition1.setDuration(Duration.millis(500));
+            translateTransition1.setNode(star.image);
+            translateTransition1.setByY(excess);
+            //Setting the cycle count for the transition
+            translateTransition1.setCycleCount(1);
+            translateTransition1.setAutoReverse(false);
+            translateTransition1.play();
 
+            TranslateTransition translateTransition2 = new TranslateTransition();
+            translateTransition2.setDuration(Duration.millis(500));
+            translateTransition2.setNode(star.rect);
+            translateTransition2.setByY(excess);
+            //Setting the cycle count for the transition
+            translateTransition2.setCycleCount(1);
+            translateTransition2.setAutoReverse(false);
+            translateTransition2.play();
+
+            star.position.setY(star.position.getY()+excess);
+        }
+        for (Point p:star_positions) {
+            p.setY(p.getY()+excess);
+        }
+        for(GUISwitch cswitch:created_switches)
+        {
+            TranslateTransition translateTransition = new TranslateTransition();
+            translateTransition.setDuration(Duration.millis(500));
+            translateTransition.setNode(cswitch.colorSwitch);
+            translateTransition.setByY(excess);
+            //Setting the cycle count for the transition
+            translateTransition.setCycleCount(1);
+            translateTransition.setAutoReverse(false);
+            translateTransition.play();
+        }
+        for (Point p:switch_positions) {
+            p.setY(p.getY()+excess);
+        }
+
+    }
+    private void manageObstacles() throws IOException {
+        if (flag == 3) {
+            ObstacleNode obst = game.getSaved_obstacles().get(0);
+            int i = 0;
+            while (i < obst.getObstacles().size()) {
+                generated_obstacles.remove(0);
+                created_obstacles.remove(0);
+                i++;
+            }
+            game.getSaved_obstacles().remove(0);
+            //now, generate one more obstacle
+            game.generateObstacles();
+
+            Obstacles o = generated_obstacles.get(generated_obstacles.size()-1);
+            Group obs = null;
+            if(o instanceof CircleObs)
+                obs = ObstacleCreator.createRing(o.getPosition().getX(),o.getPosition().getY(),o.getSizeParameter()/2);
+            else if(o instanceof Square)
+                obs = ObstacleCreator.createSquare(o.getPosition().getX(),o.getPosition().getY(),o.getSizeParameter());
+            else if(o instanceof Cross)
+                obs = ObstacleCreator.createCross(o.getPosition().getX(),o.getPosition().getY(),o.getSizeParameter());
+
+            Rotate rotate = new Rotate();
+            Translate translate = new Translate();
+            rotate.setPivotX(o.getPosition().getX());
+            rotate.setPivotY(o.getPosition().getY());
+            try {
+                obs.getTransforms().add(rotate);
+                obs.getTransforms().add(translate);
+            }
+            catch (NullPointerException e){
+                e.printStackTrace();
+            }
+            GUIObstacleNode obstacle = new GUIObstacleNode();
+            obstacle.obstacle = obs; obstacle.angle = o.getOffset_angle(); obstacle.rate = o.getSpeed();
+            created_obstacles.add(obstacle);
+            parent.getChildren().add(obs);
+
+            Point c = switch_positions.get(switch_positions.size()-1);
+            Group color_switch = createColorSwitch(c.getX(),c.getY(),14);
+            color_switch.getTransforms().add(new Translate());
+            created_switches.add(new GUISwitch(color_switch,c));
+            parent.getChildren().add(color_switch);
+
+            Point s = star_positions.get(star_positions.size()-1);
+            ImageView star = createStar(s.getX(),s.getY(),30);
+            star.getTransforms().add(new Translate());
+            parent.getChildren().add(star);
+            created_stars.add(new GUIStar(star,s));
+
+            flag = 0;
+        }
     }
 
     private boolean checkCollision(){
@@ -283,9 +400,7 @@ public class TestBallAnimation {
         }
 
         GUIStar s = created_stars.get(0);
-        rect = new Rectangle();
-        rect.setX(s.image.getX()+5);rect.setY(s.image.getY()+5);
-        rect.setWidth(s.image.getFitWidth());rect.setHeight(s.image.getFitHeight());
+        rect = s.rect;
 
         if(Shape.intersect(rect,b).getBoundsInLocal().getWidth()!=-1)
             return s;
